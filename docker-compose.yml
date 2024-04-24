@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  my-ubuntu:
+    container_name: my-ubuntu
+    build: 
+      context: .
+      dockerfile: my-ubuntu.Dockerfile
+    stdin_open: true
+    tty: true
+    restart: on-failure
+    environment:
+      - TEST=test_value
