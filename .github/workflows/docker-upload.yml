@@ -18,7 +18,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: docker build
-        run: docker compose up -f ${{ env.DOCKER_FILE }} build
+        run: docker compose -f ${{ env.DOCKER_FILE }} up -d
 
       - name: check images
         run: docker images
