@@ -19,7 +19,7 @@ jobs:
       
       - name: docker build
         run: |
-          docker build -t my-ubuntu -f my-ubuntu.Dockerfile .
+          docker build -t ptjkjm1/my-ubuntu:${{ env.VER }} -f my-ubuntu.Dockerfile .
           docker compose -f ${{ env.DOCKER_FILE }} up -d
 
   push-docker:
