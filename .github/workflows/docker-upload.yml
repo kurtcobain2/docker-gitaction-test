@@ -9,16 +9,24 @@ env:
   VER: ${{ github.ref_name }}
 
 jobs:
-  push-docker:
+  build-docker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Docker buildx
         uses: docker/setup-buildx-action@v3
-
+      
       - name: docker build
-        run: docker compose -f ${{ env.DOCKER_FILE }} up -d
+        run: |
+          docker build -t my-ubuntu -f my-ubuntu.Dockerfile .
+          docker compose -f ${{ env.DOCKER_FILE }} up -d
+
+  push-docker:
+    needs: [ build-docker ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
       - name: check images
         run: docker images
@@ -34,4 +42,4 @@ jobs:
         with:
           context: .
           load: true
-          tags: ptjkjm1/test:${{env.VER}}
+          tags: ptjkjm1/my-ubuntu:${{env.VER}}
